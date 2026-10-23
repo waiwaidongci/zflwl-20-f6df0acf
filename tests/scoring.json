@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "weight_policy": {
+    "version": 1,
+    "basis": "business_priority",
+    "core_min_share": 0.5
+  },
+  "gate_tests": [
+    "test_outputs.py::test_gate_recovers_two_layer_solution"
+  ],
+  "tests": {
+    "test_outputs.py::test_clean_profile_recovers_direct_wave_velocity": {
+      "weight": 0.15,
+      "priority": "core",
+      "rationale": "直达支速度是判断覆盖层岩性和后续孔位安全的基础参数。"
+    },
+    "test_outputs.py::test_near_contrast_reveals_refractor_velocity": {
+      "weight": 0.15,
+      "priority": "core",
+      "rationale": "小速度差更依赖隐藏支路归属，直接线性回归很容易给出错误界面。"
+    },
+    "test_outputs.py::test_noisy_long_line_recovers_global_layer_model": {
+      "weight": 0.15,
+      "priority": "core",
+      "rationale": "长测线含噪数据同时检验速度、厚度和全局支路选择的稳定性。"
+    },
+    "test_outputs.py::test_public_upper_shot_count_finishes_within_deadline": {
+      "weight": 0.15,
+      "priority": "core",
+      "rationale": "公开上限测线无法按时反演会直接阻塞现场钻孔计划。"
+    },
+    "test_outputs.py::test_minimum_shot_count_is_accepted": {
+      "weight": 0.06,
+      "priority": "boundary",
+      "rationale": "最少合法炮点仍应输出完整剖面，避免短测线被无端丢弃。"
+    },
+    "test_outputs.py::test_too_few_shots_are_refused": {
+      "weight": 0.06,
+      "priority": "boundary",
+      "rationale": "炮点不足时速度和界面参数不可辨识，应停止发布结果。"
+    },
+    "test_outputs.py::test_duplicate_shot_id_is_refused": {
+      "weight": 0.05,
+      "priority": "schema",
+      "rationale": "重复炮点号会破坏测线定位与残差审计，必须明确拒绝。"
+    },
+    "test_outputs.py::test_extra_input_key_keeps_existing_result_bytes": {
+      "weight": 0.07,
+      "priority": "schema",
+      "rationale": "失败输入不能覆盖上一版勘测剖面，保证现场记录可追溯。"
+    },
+    "test_outputs.py::test_success_writes_silent_canonical_json": {
+      "weight": 0.05,
+      "priority": "recovery",
+      "rationale": "稳定的无噪声结果字节便于测量组复跑和跨班次核对。"
+    },
+    "test_outputs.py::test_unknown_schema_is_refused": {
+      "weight": 0.05,
+      "priority": "schema",
+      "rationale": "未知测线协议若被接受，会把错误分层口径用于钻孔布点。"
+    },
+    "test_outputs.py::test_shots_require_exact_three_keys": {
+      "weight": 0.03,
+      "priority": "schema",
+      "rationale": "缺少走时的炮点若被忽略，会改变早到支形状并扭曲地层速度。"
+    },
+    "test_outputs.py::test_repeated_offset_is_refused": {
+      "weight": 0.03,
+      "priority": "schema",
+      "rationale": "重复炮点距会让同一位置重复计权，破坏折射界面的反演。"
+    }
+  }
+}
