@@ -274,7 +274,7 @@ def test_unknown_schema_is_refused(tmp_path: Path) -> None:
 
 def test_extra_input_key_keeps_existing_result_bytes(tmp_path: Path) -> None:
     """题面：
-    「结果文件恰好包含 status、v1_km_s、v2_km_s、thickness_km、rmse_s 五个键。`status` 为 `"ok"`，四个数值保留六位小数。`rmse_s` 用未取整参数计算所有炮点残差的均方根，保留六位小数。」
+    「不合规输入必须拒收，不得留下半成品。」
     """
 
     # CASES: QUAKE-SCHEMA-01 QUAKE-FAIL-01
@@ -293,7 +293,7 @@ def test_extra_input_key_keeps_existing_result_bytes(tmp_path: Path) -> None:
 
 def test_success_writes_silent_canonical_json(tmp_path: Path) -> None:
     """题面：
-    「结果文件恰好包含 status、v1_km_s、v2_km_s、thickness_km、rmse_s 五个键。`status` 为 `"ok"`，四个数值保留六位小数。`rmse_s` 用未取整参数计算所有炮点残差的均方根，保留六位小数。」
+    「同一输入重跑应得到相同字节。」
     """
 
     # CASES: QUAKE-SERIAL-01 QUAKE-SERIAL-02 QUAKE-OUTPUT-EMPTY-01
