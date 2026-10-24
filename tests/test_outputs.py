@@ -13,12 +13,22 @@ import pytest
 
 ENTRY = os.environ.get("REFRACTION_SOLVER", "/app/refraction.py")
 
+SAFE_ENV = {
+    "PATH": "/usr/bin:/bin",
+    "HOME": "/tmp",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+}
+
 
 def _run(payload: Path, output: Path) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
-        [sys.executable, ENTRY, str(payload), str(output)],
+        [sys.executable, "-S", "-P", "-B", ENTRY, str(payload), str(output)],
         text=True,
         capture_output=True,
+        env=SAFE_ENV,
         timeout=15,
         check=False,
     )
@@ -148,9 +158,10 @@ def test_public_upper_shot_count_finishes_within_deadline(tmp_path: Path) -> Non
     _write_json(source, payload)
     started = time.monotonic()
     completed = subprocess.run(
-        [sys.executable, ENTRY, str(source), str(output)],
+        [sys.executable, "-S", "-P", "-B", ENTRY, str(source), str(output)],
         text=True,
         capture_output=True,
+        env=SAFE_ENV,
         timeout=15,
         check=False,
     )
