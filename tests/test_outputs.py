@@ -174,7 +174,7 @@ def test_public_upper_shot_count_finishes_within_deadline(tmp_path: Path) -> Non
 
 def test_minimum_shot_count_is_accepted(tmp_path: Path) -> None:
     """题面：
-    「只要结果正常落盘，标准输出与标准错误都保持空白。结果文件按紧凑 JSON 落盘，键名升序排列，正文后跟一个换行。同一输入重复执行应得到相同字节。」
+    「`shots` 的条数落在 10 至 48 之间」
     """
 
     # CASES: QUAKE-RANGE-01 QUAKE-SCHEMA-01
